@@ -19,3 +19,4 @@ Example
 
 The application will start, will print the values and will stop. It will look like this
 
+![Sample when running the application to generate the salt values](https://github.com/lealceldeiro/salt-generator/blob/main/sample.png?raw=true)
