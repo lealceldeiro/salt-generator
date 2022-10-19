@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.keygen.KeyGenerators;
+import org.springframework.security.crypto.keygen.StringKeyGenerator;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -15,6 +16,8 @@ import static java.util.stream.Collectors.joining;
 
 @SpringBootApplication
 public class SaltGeneratorApplication {
+    private static final StringKeyGenerator STRING_KEY_GENERATOR = KeyGenerators.string();
+
     public static void main(String[] args) {
         SpringApplication.run(SaltGeneratorApplication.class, args);
     }
@@ -32,7 +35,7 @@ public class SaltGeneratorApplication {
                                               
                        %s
                                               
-                       ============== Done ==============
+                       ============== Done =============
                        """
                     .formatted(numberOfSaltsToGenerate, generateNSaltValues(numberOfSaltsToGenerate));
 
@@ -51,7 +54,7 @@ public class SaltGeneratorApplication {
 
     private static String generateNSaltValues(int n) {
         return IntStream.range(0, n)
-                        .mapToObj(i -> KeyGenerators.string().generateKey())
+                        .mapToObj(i -> STRING_KEY_GENERATOR.generateKey())
                         .collect(joining(lineSeparator()));
     }
 }
